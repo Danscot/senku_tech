@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard | Senku Tech</title>
+  <style>
+    :root{
+      --primary:#8A2BE2;
+      --primary-light:#9b4ded;
+      --bg:#121212;
+      --sidebar-bg:#1a1a1a;
+      --header-bg:#1e1e1e;
+      --card-bg:#1b1b1b;
+      --text:#f1f1f1;
+      --muted:#9a9a9a;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Tahoma,Helvetica,Arial,sans-serif}
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* HEADER */
+    header{
+      background:var(--header-bg);
+      padding:1rem 1.25rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      box-shadow:0 2px 8px rgba(0,0,0,0.5);
+    }
+    header .brand{ color:var(--primary); font-weight:700; letter-spacing:0.6px }
+    header nav{ display:flex; gap:1.1rem; align-items:center }
+    header nav a{ color:var(--text); text-decoration:none; font-weight:600; font-size:0.95rem; opacity:0.95 }
+    header nav a:hover{ color:var(--primary-light) }
+
+    /* LAYOUT */
+    .layout{ display:flex; flex:1; min-height:calc(100vh - 120px) }
+
+    /* SIDEBAR */
+    aside{
+      width:240px;
+      background:var(--sidebar-bg);
+      padding:1.25rem;
+      border-right:1px solid #262626;
+      display:flex;
+      flex-direction:column;
+      gap:0.75rem;
+      flex-shrink:0;
+    }
+    .nav-links{ display:flex; flex-direction:column; gap:0.35rem; }
+    .sidebar-link{
+      display:block;
+      padding:0.8rem 0.9rem;
+      color:var(--text);
+      text-decoration:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .18s ease;
+    }
+    .sidebar-link:hover{ transform:translateX(4px) }
+    .sidebar-link.active{ background:var(--primary); color:#fff; box-shadow:0 4px 14px rgba(138,43,226,0.08) }
+
+    /* SMALL WIDGETS in sidebar */
+    .widget{
+      background:var(--card-bg);
+      border-radius:10px;
+      padding:0.9rem;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      border:1px solid #262626;
+    }
+    .widget .title{ color:var(--muted); font-size:0.78rem; }
+    .widget .value{ color:var(--text); font-weight:700; font-size:1.05rem; }
+
+    .bot-quick{ display:flex; align-items:center; gap:0.6rem; }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#e53935; box-shadow:0 0 6px rgba(0,0,0,0.5) }
+
+    /* MAIN */
+    main{
+      flex:1;
+      padding:1.5rem;
+    }
+    .card{
+      background:var(--card-bg);
+      padding:1.15rem;
+      border-radius:10px;
+      border:1px solid #262626;
+      box-shadow:0 8px 30px rgba(0,0,0,0.25);
+    }
+    h2{ color:var(--primary); margin-bottom:0.5rem }
+    p{ color:var(--muted); line-height:1.45 }
+
+    /* Inputs - smaller layout */
+    .row{ display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap }
+    .small-select{ padding:8px 9px; border-radius:8px; border:1px solid #2b2b2b; background:#141414; color:var(--text); font-weight:600; width:110px; }
+    .small-input{ padding:8px 10px; border-radius:8px; border:1px solid #2b2b2b; background:#141414; color:var(--text); flex:1; min-width:120px; }
+    .btn{ background:var(--primary); color:#fff; border:none; padding:9px 14px; border-radius:8px; cursor:pointer; font-weight:700 }
+    .btn:hover{ background:var(--primary-light) }
+
+    .status { display:flex; align-items:center; gap:0.6rem; margin:12px 0; font-weight:700 }
+    .status .dot.green{ background:#4caf50 }
+    .status .dot.red{ background:#e53935 }
+
+    table{ width:100%; border-collapse:collapse; margin-top:12px; font-size:0.95rem }
+    th,td{ padding:10px; border:1px solid #252525; text-align:left; color:var(--text) }
+    th{ color:var(--muted); font-weight:600; font-size:0.85rem }
+
+    /* MODAL & spinner */
+    .modal{ position:fixed; inset:0; display:none; background:rgba(0,0,0,0.72); align-items:center; justify-content:center; z-index:60 }
+    .modal .modal-box{ background:var(--header-bg); padding:1.2rem 1.3rem; border-radius:10px; width:320px; text-align:center; border:1px solid #262626 }
+    .spinner{ width:34px; height:34px; border-radius:50%; border:4px solid rgba(255,255,255,0.06); border-top-color:var(--primary); animation:spin 0.9s linear infinite; margin:10px auto 6px }
+    @keyframes spin{ to{ transform:rotate(360deg) } }
+
+    /* bottom nav for mobile */
+    .bottom-nav{ display:none }
+    @media(max-width:820px){
+      aside{ display:none }
+      .bottom-nav{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0; right:0;
+        background:var(--sidebar-bg);
+        border-top:1px solid #262626;
+        justify-content:space-around;
+        padding:9px 6px;
+        z-index:80;
+      }
+      .bottom-nav button{ background:transparent; border:none; color:#bfbfbf; font-weight:700; padding:8px; cursor:pointer }
+      .bottom-nav button.active{ color:var(--primary) }
+      main{ padding-bottom:86px }
+      .row{ flex-direction:column; align-items:stretch }
+      .small-select{ width:100% }
+      .small-input{ width:100% }
+    }
+
+    /* minor utilities */
+    .muted{ color:var(--muted); font-size:0.92rem }
+    footer{ padding:0.8rem; text-align:center; color:var(--muted); background:var(--header-bg); font-size:0.88rem }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Senku Tech</div>
+
+    <nav>
+      <a href="#">Hosting</a>
+      <a href="#">Bot</a>
+      <a href="#">Dashboard</a>
+      <a href="#">Account</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="nav-links">
+        <div class="sidebar-link active" data-section="bot">Bot</div>
+        <div class="sidebar-link" data-section="panel">Panel</div>
+        <div class="sidebar-link" data-section="coin">Coin</div>
+      </div>
+
+      <!-- quick widgets below nav -->
+      <div style="margin-top:10px"></div>
+
+      <div class="widget">
+        <div class="title">Bot quick</div>
+        <div class="bot-quick">
+          <div class="dot" id="sidebarBotDot"></div>
+          <div>
+            <div class="value" id="sidebarBotText">No session</div>
+            <div class="muted" style="font-size:0.78rem">Last: —</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget">
+        <div class="title">Panel</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="value" id="panelContainers">0</div>
+            <div class="muted" style="font-size:0.78rem">Containers</div>
+          </div>
+          <div style="text-align:right">
+            <div class="value" id="panelUptime">0h</div>
+            <div class="muted" style="font-size:0.78rem">Uptime</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget">
+        <div class="title">Coin</div>
+        <div>
+          <div class="value" id="coinBalance">0.00</div>
+          <div class="muted" style="font-size:0.78rem">FCFA</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <div id="mainArea" class="card">
+        <!-- Default content rendered by JS -->
+      </div>
+    </main>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <div class="bottom-nav" role="navigation" aria-label="mobile nav">
+    <button data-section="bot" class="active">Bot</button>
+    <button data-section="panel">Panel</button>
+    <button data-section="coin">Coin</button>
+  </div>
+
+  <footer>&copy; 2025 Senku Tech — All rights reserved.</footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <div id="modalBody">
+        <div class="spinner"></div>
+        <div class="muted">Pairing... please wait</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* --- STATE --- */
+    let state = {
+      current: 'bot',
+      session: null, // when paired: { number, country, created, code }
+      containers: 0,
+      uptimeHours: 0,
+      coin: 0.00
+    };
+
+    /* --- DOM refs --- */
+    const mainArea = document.getElementById('mainArea');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const bottomBtns = document.querySelectorAll('.bottom-nav button');
+    const modal = document.getElementById('modal');
+    const modalBody = document.getElementById('modalBody');
+
+    const sidebarBotDot = document.getElementById('sidebarBotDot');
+    const sidebarBotText = document.getElementById('sidebarBotText');
+    const panelContainers = document.getElementById('panelContainers');
+    const panelUptime = document.getElementById('panelUptime');
+    const coinBalance = document.getElementById('coinBalance');
+
+    /* --- helpers --- */
+    function setActiveNav(section){
+      sidebarLinks.forEach(el => el.classList.toggle('active', el.getAttribute('data-section') === section));
+      bottomBtns.forEach(el => el.classList.toggle('active', el.getAttribute('data-section') === section));
+      state.current = section;
+    }
+
+    function updateSidebarWidgets(){
+      // Bot widget
+      if(state.session){
+        sidebarBotDot.classList.remove(''); sidebarBotDot.classList.add('green');
+        sidebarBotDot.style.background = '#4caf50';
+        sidebarBotText.textContent = 'Active • ' + state.session.number;
+      } else {
+        sidebarBotDot.style.background = '#e53935';
+        sidebarBotText.textContent = 'No session';
+      }
+
+      // Panel widget
+      panelContainers.textContent = state.containers;
+      panelUptime.textContent = state.uptimeHours + 'h';
+
+      // Coin widget
+      coinBalance.textContent = Number(state.coin).toFixed(2);
+    }
+
+    /* --- RENDERERS --- */
+    function renderBotForm(){
+      mainArea.innerHTML = `
+        <h2>Bot Management</h2>
+        <p>No bot connected. Enter your number below to connect.</p>
+        <div style="height:10px"></div>
+        <div class="row">
+          <select id="country" class="small-select">
+            <option value="+237">+237 (CM)</option>
+            <option value="+1">+1 (US)</option>
+            <option value="+44">+44 (UK)</option>
+          </select>
+          <input id="phone" class="small-input" type="text" placeholder="e.g. 670701984" inputmode="tel" />
+          <button id="pairBtn" class="btn">Pair</button>
+        </div>
+        <div style="height:12px"></div>
+        <div class="muted">After you click <strong>Pair</strong>, a pairing code will be generated and shown — complete the pairing from your phone.</div>
+      `;
+
+      document.getElementById('pairBtn').addEventListener('click', onPairClick);
+    }
+
+    function renderBotActive(){
+      const s = state.session;
+      mainArea.innerHTML = `
+        <h2>Bot Management</h2>
+        <div class="status"><div class="dot green"></div> Active</div>
+
+        <table>
+          <tr><th>Number</th><td>${s.country} ${s.number}</td></tr>
+          <tr><th>Status</th><td>Running</td></tr>
+          <tr><th>Created</th><td>${new Date(s.created).toLocaleString()}</td></tr>
+          <tr><th>Pairing code</th><td><strong>${s.code}</strong></td></tr>
+        </table>
+
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn" id="terminateBtn">Terminate</button>
+          <button class="btn" id="refreshBtn" style="background:#2c2c2c; font-weight:700">Refresh</button>
+        </div>
+      `;
+      document.getElementById('terminateBtn').addEventListener('click', terminateSession);
+      document.getElementById('refreshBtn').addEventListener('click', () => {
+        // simulate refresh - in real app you'd fetch status from backend
+        alert('Refreshed (demo)');
+      });
+    }
+
+    function renderPanel(){
+      mainArea.innerHTML = `
+        <h2>Panel</h2>
+        <p class="muted">Quick overview of the hosting panel & runtime.</p>
+
+        <div style="display:flex;gap:12px; margin-top:12px; flex-wrap:wrap">
+          <div class="card" style="flex:1; min-width:220px">
+            <div class="muted">Containers</div>
+            <div style="font-weight:800; font-size:1.2rem">${state.containers}</div>
+            <div class="muted" style="margin-top:8px">Active containers running</div>
+          </div>
+
+          <div class="card" style="flex:1; min-width:220px">
+            <div class="muted">Uptime</div>
+            <div style="font-weight:800; font-size:1.2rem">${state.uptimeHours} hours</div>
+            <div class="muted" style="margin-top:8px">Total platform uptime</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCoin(){
+      mainArea.innerHTML = `
+        <h2>Coin</h2>
+        <p class="muted">Balance & transactions</p>
+
+        <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap">
+          <div class="card" style="min-width:220px; flex:1">
+            <div class="muted">Balance</div>
+            <div style="font-weight:900; font-size:1.3rem">${Number(state.coin).toFixed(2)} FCFA</div>
+            <div style="margin-top:10px">
+              <button class="btn" id="topupBtn">Top up</button>
+            </div>
+          </div>
+
+          <div class="card" style="flex:2; min-width:260px">
+            <div class="muted">Recent transactions</div>
+            <table style="margin-top:8px">
+              <thead><tr><th>Date</th><th>Amount</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td>—</td><td>-</td><td>-</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      const topup = document.getElementById('topupBtn');
+      if(topup) topup.addEventListener('click', ()=> alert('Top up (demo)'));
+    }
+
+    /* --- EVENTS --- */
+    sidebarLinks.forEach(el => el.addEventListener('click', () => {
+      const sec = el.getAttribute('data-section');
+      setActiveNav(sec);
+      renderSection(sec);
+    }));
+
+    bottomBtns.forEach(el => el.addEventListener('click', () => {
+      const sec = el.getAttribute('data-section');
+      setActiveNav(sec);
+      renderSection(sec);
+    }));
+
+    function renderSection(section){
+      if(section === 'bot'){
+        if(state.session) renderBotActive();
+        else renderBotForm();
+      } else if(section === 'panel'){
+        renderPanel();
+      } else if(section === 'coin'){
+        renderCoin();
+      }
+      updateSidebarWidgets();
+    }
+
+    /* pairing flow */
+    function onPairClick(){
+      const country = (document.getElementById('country') || {}).value || '+237';
+      const phone = (document.getElementById('phone') || {}).value || '';
+      if(!phone || phone.trim().length < 5){
+        alert('Please enter a valid phone number (demo)');
+        return;
+      }
+
+      // show modal (pairing spinner)
+      modal.style.display = 'flex';
+      modalBody.innerHTML = '<div class="spinner"></div><div class="muted">Pairing... please wait</div>';
+
+      // simulate async pairing call
+      setTimeout(()=>{
+        const code = Math.floor(100000 + Math.random()*900000).toString().replace(/(\d{3})(\d{3})/,'$1-$2'); // e.g. 123-456
+        // show code in modal
+        modalBody.innerHTML = `<div style="font-weight:800; font-size:1.25rem; color:var(--primary)">Pairing Code</div>
+          <div style="margin-top:8px; font-weight:900; font-size:1.25rem">${code}</div>
+          <div class="muted" style="margin-top:8px">Enter this code on your phone to finish pairing</div>
+          <div style="margin-top:12px"><button class="btn" id="modalCloseBtn">Close</button></div>`;
+
+        // create session object and render active view (demo)
+        state.session = { country, number: phone.trim(), created: Date.now(), code };
+        // update sidebar quick widget info
+        updateSidebarWidgets();
+        renderBotActive();
+
+        // close logic
+        document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+      }, 1500);
+    }
+
+    function closeModal(){ modal.style.display = 'none' }
+
+    function terminateSession(){
+      if(!confirm('Terminate session? (demo)')) return;
+      // clear session & update widgets
+      state.session = null;
+      // for demo: update containers/uptime/coin a bit
+      state.containers = Math.max(0, state.containers - 1);
+      state.uptimeHours = Math.max(0, state.uptimeHours - 1);
+      updateSidebarWidgets();
+      renderBotForm();
+    }
+
+    /* initial setup */
+    (function init(){
+      // demo initial values
+      state.containers = 0;
+      state.uptimeHours = 0;
+      state.coin = 0.00;
+      setActiveNav('bot');
+      renderSection('bot');
+      updateSidebarWidgets();
+      // hide modal if clicked outside
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    })();
+
+  </script>
+</body>
+</html>
