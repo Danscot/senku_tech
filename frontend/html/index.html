@@ -1,100 +1,112 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
 
-	<meta charset="utf-8">
+  <meta charset="UTF-8">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Home | Senku Tech</title>
 
-	<title>Home</title>
+  <link rel="stylesheet" href="../css/index.css">
 
 </head>
 
 <body>
 
-	<header>
+  <header>
 
-		<div>
-			
-			<p>Home</p>
+    <h1>Senku Tech</h1>
 
-		</div>
+    <nav>
 
-		<div>
-			
-			<ul>
+      <ul>
 
-				<li>Hosting</li>
-				<li>Dashboard</li>
-				<li>Account</li>
+        <li><a href="#">Hosting</a></li>
 
-			</ul>
+        <li><a href="#">Dashboard</a></li>
 
-		</div>
-		
-	</header>
+        <li><a href="#">Account</a></li>
 
-	<!-- Intro section -->
+      </ul>
 
-	<section>
-		
-		<p>Welcome To Senku Tech</p>
+    </nav>
 
-	</section>
+    <div class="burger" id="burger">
 
+      <div></div><div></div><div></div>
 
-	<!-- About section -->
+    </div>
 
-	<section>
+  </header>
 
-		<p>We are a start up focused on the running and development of automation scripts ( bots ) on social media platforms including WhatsApp and Telegram.</p>
+  <section class="hero">
 
-		<p>We are also providing hosting environment for the running of automation scripts ( bots ) through by providing Virtual Private Servers ( VPSs ) already setup with pterodactyl dashboard.</p>
+    <h2>Automation Made Simple 🚀</h2>
 
-	</section>
+    <p>Senku Tech a leading startup in the domain of automations accross social media notably WhatsApp anf Telegram.</p>
 
+    <a href="#" class="btn">Try WhatsApp Bot</a>
 
-	<!-- Outro section :) lol -->
+    <a href="#" class="btn">Hosting Service</a>
 
-	<section>
+  </section>
 
-		<p>The founder of this startup is Danscot ( a.k.a Dev Senku ).</p>
+  <section class="stats">
 
-		<p>Get more informations about me <a>here.<a><p>
-		
-	</section>
+    <div class="stat-card">
 
-	<footer id="contact" class="contact">
+      <h3>120</h3>
 
-	    <div class="contact">
+      <p>Active Bot Sessions</p>
 
-	      <p class="sp">Contact Information:</p>
+    </div>
 
-	      <p class="sl">Email: <a href="mailto:scotfielddaniel@gmail.com">scotfielddaniel@gmail.com</a></p>
+    <div class="stat-card">
 
-	      <a href="https://web.whatsapp.com/send?phone=+237689360833" target="_blank" class="sl"><i class="fab fa-whatsapp fa-2x"></i></a>
+      <h3>5,432</h3>
 
-	      <a href="https://t.me/dev_danscot" target="_blank" class="sl"><i class="fab fa-telegram fa-2x"></i></a>
+      <p>Visitors</p>
 
-	    </div>
+    </div>
 
-	    <div class="social">
+  </section>
 
-	      <p class="sp">Follow Me</p>
+  <section class="about">
 
-	      <a href="https://x.com/Danscot_007" target="_blank" class="sl"><i class="fab fa-twitter fa-2x"></i></a>
+    <h2>About Senku Tech</h2>
+    <p>
+      Senku Tech is a startup that builds software solutions, mostly focused on <strong>social media automations</strong>. 
 
-	      <a href="https://discord.gg/danscot" target="_blank" class="sl"><i class="fab fa-discord fa-2x"></i></a>
+      Founded and built by <strong>Danscot ( Dev Senku )</strong>, our mission is to make automation accessible and reliable for everyone.
+   
+    </p>
 
-	      <a href="https://github.com/danscot" target="_blank" class="sl"><i class="fas fa-github fa-2x"></i></a>
+  </section>
 
-	    </div>
+  <footer>
+
+    Made with ❤️ by Danscot
 
   </footer>
+
+  <script>
+
+    const burger = document.getElementById('burger');
+
+    const nav = document.querySelector('nav');
+
+    burger.addEventListener('click', () => {
+
+      burger.classList.toggle('active');
+
+      nav.classList.toggle('show');
+
+    });
+
+  </script>
 
 </body>
 

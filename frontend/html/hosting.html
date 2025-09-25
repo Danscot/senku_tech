@@ -1,318 +1,166 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Hosting | Senku Tech</title>
-  <style>
-    :root {
-      --primary: #8A2BE2;
-      --primary-light: #9b4ded;
-      --bg: #0d0d0f;
-      --text: #f1f1f1;
-      --muted: #aaa;
-      --header-gradient: linear-gradient(90deg, #8A2BE2, #4b0082);
-    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+  <link rel="stylesheet" href="../css/hosting.css">
 
-	header{
-      background:var(--header-bg);
-      padding:1rem 1.25rem;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-      box-shadow:0 2px 8px rgba(0,0,0,0.5);
-    }
-    
-    header .brand{ color:var(--primary); font-weight:700; letter-spacing:0.6px }
-    header nav{ display:flex; gap:1.1rem; align-items:center }
-    header nav a{ color:var(--text); text-decoration:none; font-weight:600; font-size:0.95rem; opacity:0.95 }
-    header nav a:hover{ color:var(--primary-light) }
-
-    header h1 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 2px;
-      background: var(--text);
-      transition: width 0.3s;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    /* BURGER */
-    .burger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-    }
-    .burger div {
-      width: 25px;
-      height: 3px;
-      background: var(--text);
-      transition: all 0.3s;
-    }
-
-    /* MOBILE MENU */
-    .mobile-menu {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 70%;
-      height: 100%;
-      background: #1a1a1d;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      transition: right 0.4s ease;
-      z-index: 999;
-    }
-
-    .mobile-menu a {
-      font-size: 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .mobile-menu.active {
-      right: 0;
-    }
-
-    /* MAIN */
-    main {
-      flex: 1;
-      padding: 3rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      text-align: center;
-      color: var(--primary-light);
-      position: relative;
-    }
-
-    h2::after {
-      content: "";
-      display: block;
-      margin: 0.5rem auto;
-      width: 60px;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--primary);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    /* CARDS */
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 1rem;
-      padding: 2rem;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 0 20px rgba(138, 43, 226, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
-    }
-
-    .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary-light);
-    }
-
-    .card p {
-      margin-bottom: 1rem;
-      color: var(--muted);
-    }
-
-    .price {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin: 1rem 0;
-      color: var(--text);
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background: var(--primary);
-      color: white;
-      font-weight: bold;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn:hover {
-      background: var(--primary-light);
-      box-shadow: 0 0 15px var(--primary);
-    }
-
-    /* FOOTER */
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      border-top: 1px solid #222;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
-      .burger {
-        display: flex;
-      }
-    }
-  </style>
 </head>
+
 <body>
+
   <header>
+
     <h1>Senku Tech</h1>
+
     <nav>
+
       <a href="#">Hosting</a>
+
       <a href="#">Dashboard</a>
-      <a href="#">Other</a>
+
       <a href="#">Account</a>
+
     </nav>
+
     <div class="burger" id="burger">
+
       <div></div>
+
       <div></div>
+
       <div></div>
+
     </div>
+
   </header>
 
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
   <div class="mobile-menu" id="mobileMenu">
+
     <a href="#">Hosting</a>
+
     <a href="#">Dashboard</a>
-    <a href="#">Other</a>
+
     <a href="#">Account</a>
+
   </div>
 
   <main>
+
     <h2>Bot Panels</h2>
+
     <div class="grid">
+
       <div class="card">
-        <h3>1GB Panel</h3>
-        <p>Lightweight panel for testing small bots</p>
-        <div class="price">$5/mo</div>
-        <a href="#" class="btn">Order Now</a>
-      </div>
-      <div class="card">
+
         <h3>5GB Panel</h3>
+
         <p>Perfect for small production bots</p>
-        <div class="price">$10/mo</div>
+
+        <div class="price">$2 | 1000 cfa/mo </div>
+
         <a href="#" class="btn">Order Now</a>
+
       </div>
+
       <div class="card">
-        <h3>10GB Panel</h3>
-        <p>Scale up with larger storage</p>
-        <div class="price">$20/mo</div>
-        <a href="#" class="btn">Order Now</a>
-      </div>
-      <div class="card">
+
         <h3>Unlimited Panel</h3>
-        <p>No limits, full control</p>
-        <div class="price">$50/mo</div>
+
+        <p>Scale up with larger storage</p>
+
+        <div class="price">$3 | 1500 cfa/mo</div>
+
         <a href="#" class="btn">Order Now</a>
+
       </div>
+
     </div>
 
     <h2>VPS Hosting</h2>
+
     <div class="grid">
+
       <div class="card">
+
         <h3>4GB VPS</h3>
+
         <p>Basic virtual server for small apps</p>
-        <div class="price">$25/mo</div>
+
+        <div class="price">$7 | 4100 cfa/mo</div>
+
         <a href="#" class="btn">Order Now</a>
+
       </div>
+
       <div class="card">
+
         <h3>8GB VPS</h3>
+
         <p>Balanced resources for mid-size projects</p>
-        <div class="price">$40/mo</div>
+
+        <div class="price">$9 | 4700 cfa/mo</div>
+
         <a href="#" class="btn">Order Now</a>
+
       </div>
+
       <div class="card">
+
         <h3>16GB VPS</h3>
+
         <p>High-performance VPS for enterprise bots</p>
-        <div class="price">$70/mo</div>
+
+        <div class="price">$10 | 5200 cfa/mo</div>
+
         <a href="#" class="btn">Order Now</a>
+
       </div>
+
     </div>
+
   </main>
 
   <footer>
+
     &copy; 2025 Senku Tech — All rights reserved.
+
   </footer>
 
   <script>
+
     const burger = document.getElementById('burger');
+
     const mobileMenu = document.getElementById('mobileMenu');
 
-    burger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu() {
+
       burger.classList.toggle('open');
-    });
+
+      mobileMenu.classList.toggle('active');
+
+      mobileOverlay.classList.toggle('active');
+    }
+
+    burger.addEventListener('click', toggleMenu);
+
+    mobileOverlay.addEventListener('click', toggleMenu);
+
   </script>
+
 </body>
+
 </html>
