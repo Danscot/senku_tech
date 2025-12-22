@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Account | Senku Tech</title>
+
+  <!-- Reuse SAME CSS -->
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+
+<header>
+  <div class="brand">𝚂𝚎𝚗𝚔𝚞 𝚃𝚎𝚌𝚑</div>
+  <nav>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'account' %}">Account</a>
+  </nav>
+
+  <div class="burger" id="burger">
+    <div></div><div></div><div></div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'account' %}">Account</a>
+</div>
+
+<div class="layout">
+  <aside>
+
+  	<div class="widget">
+      <div class="value">Hello world</div>
+    </div>
+
+    <div class="widget">
+      <div class="title">Account status</div>
+      <div class="value">Active</div>
+      <div class="muted">Last login: Today</div>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- PROFILE -->
+    <div class="card">
+      <h2>Account</h2>
+      <p class="muted">Basic account information</p>
+
+      <div style="display:flex; gap:14px; margin-top:14px; flex-wrap:wrap">
+        <div style="flex:1; min-width:240px">
+          <div class="muted">Username</div>
+          <div style="font-weight:800; margin-top:4px">{{ username }}</div>
+        </div>
+
+        <div style="flex:1; min-width:240px">
+          <div class="muted">Email</div>
+          <div style="font-weight:800; margin-top:4px">{{ email }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="card" style="margin-top:14px">
+      <h2>Bot Session</h2>
+      <p class="muted">Bot & session control</p>
+
+      <div class="status">
+        <div class="dot green" id="dot"></div>
+        Bot connected
+      </div>
+
+       <div style="flex:1; min-width:240px">
+          <div class="muted">session number</div>
+          <div style="font-weight:800; margin-top:4px">{{ bot_num }}</div>
+        </div>
+
+        <div style="flex:1; min-width:240px">
+          <div class="muted">Expiration</div>
+          <div style="font-weight:800; margin-top:4px">{{ bot_exp }}</div>
+        </div>
+
+
+    </div>
+
+  </main>
+</div>
+
+<footer>&copy; 2025 Senku Tech — All rights reserved.</footer>
+
+<script>
+
+  const burger = document.getElementById('burger');
+
+  const mobileNav = document.getElementById('mobileNav');
+
+  const mobileClose = document.getElementById('mobileClose');
+
+  burger.onclick = () => {
+
+    burger.classList.toggle('open');
+
+    mobileNav.classList.toggle('active');
+  };
+
+  mobileClose.onclick = () => {
+
+    burger.classList.remove('open');
+
+    mobileNav.classList.remove('active');
+
+  };
+
+
+  const botExp = "{{ bot_exp|default:'' }}";
+
+  if (botExp === "" || botExp === "None") {
+    const active = document.getElementById('dot');
+    active.style.background = 'red';
+  }
+
+</script>
+
+</body>
+</html>

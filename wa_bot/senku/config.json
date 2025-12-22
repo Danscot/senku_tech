@@ -1,0 +1,85 @@
+{
+  "users": {
+    "root": {
+      "primary": "13438827135"
+    },
+    "13438827135": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    },
+    "237657593668": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    },
+    "13478533108": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    },
+    "237670701984": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    },
+    "2376708928847": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    },
+    "234567898765": {
+      "sudoList": [],
+      "tagAudioPath": "tag.mp3",
+      "antilink": false,
+      "response": true,
+      "autoreact": false,
+      "prefix": ".",
+      "welcome": false,
+      "record": false,
+      "type": false,
+      "like": false,
+      "online": false
+    }
+  }
+}

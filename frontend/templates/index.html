@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Home | Senku Tech</title>
+
+  
+  <link rel="stylesheet" href="{% static '/css/index.css' %}">
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>𝚂𝚎𝚗𝚔𝚞 𝚃𝚎𝚌𝚑</h1>
+
+    <nav>
+
+      <ul>
+
+        <li><a href="{% url 'index' %}">Home</a></li>
+
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+
+        <li><a href="{% url 'account' %}">Account</a></li>
+
+      </ul>
+
+    </nav>
+
+    <div class="burger" id="burger">
+
+      <div></div><div></div><div></div>
+
+    </div>
+
+  </header>
+
+  <section class="hero">
+
+    <h2>𝓐𝓾𝓽𝓸𝓶𝓪𝓽𝓲𝓸𝓷 𝓜𝓪𝓭𝓮 𝓢𝓲𝓶𝓹𝓵𝓮 🚀</h2>
+
+    <p>Senku Tech a leading startup in the domain of automations accross social media notably WhatsApp and Telegram.</p>
+
+    <a href="{% url 'dashboard' %}" class="btn">Try WhatsApp Bot</a>
+
+    <a href="#" class="btn">Hosting Service</a>
+
+  </section>
+
+  <section class="stats">
+
+    <div class="stat-card">
+
+      <h3>40</h3>
+
+      <p>Max Bot Sessions</p>
+
+    </div>
+
+
+  </section>
+
+  <section class="about">
+
+    <h2>𝒜𝒷𝑜𝓊𝓉 𝒮𝑒𝓃𝓀𝓊 𝒯𝑒𝒸𝒽</h2>
+    <p>
+      Senku Tech is a startup that builds software solutions, mostly focused on <strong>social media automations</strong>. 
+
+      Founded and built by <strong>Danscot ( Dev Senku )</strong>, our mission is to make automation accessible and reliable for everyone.
+   
+    </p>
+
+  </section>
+
+  <footer>
+
+    Made with ❤️ by Danscot
+
+  </footer>
+
+  <script>
+
+    const burger = document.getElementById('burger');
+
+    const nav = document.querySelector('nav');
+
+    burger.addEventListener('click', () => {
+
+      burger.classList.toggle('active');
+
+      nav.classList.toggle('show');
+
+    });
+
+  </script>
+
+</body>
+
+</html>

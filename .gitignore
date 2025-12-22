@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+*.pot
+*.pyc
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# Django
+*.sqlite3
+*.db
+db.sqlite3
+/staticfiles/
+/media/
+*.log
+local_settings.py
+secret_key.txt
+
+# PyCharm / IDEs
+.idea/
+*.iml
+.vscode/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# PM2
+pids/
+*.pid
+*.seed
+*.pid.lock
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+
+# Backup files
+*.bak
+*.swp

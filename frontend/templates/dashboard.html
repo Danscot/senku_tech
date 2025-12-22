@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard | Senku Tech</title>
+  
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+
+
+<header>
+  <div class="brand">𝚂𝚎𝚗𝚔𝚞 𝚃𝚎𝚌𝚑</div>
+  <nav>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'account' %}">Account</a>
+  </nav>
+  <div class="burger" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose">✕</button>
+
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'account' %}">Account</a>
+</div>
+
+<div class="layout">
+  <aside>
+    <div class="nav-links">
+      <div class="sidebar-link active" data-section="bot">Bot</div>
+      <div class="sidebar-link" data-section="panel">Panel</div>
+      <div class="sidebar-link" data-section="coin">Coin</div>
+    </div>
+
+    <div class="widget">
+      <div class="title">Bot quick</div>
+      <div class="bot-quick">
+        <div class="dot" id="sidebarBotDot"></div>
+        <div>
+          <div class="value" id="sidebarBotText">No session</div>
+          <div class="muted" style="font-size:0.78rem">Last: —</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="title">Panel</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="value" id="panelContainers">0</div>
+          <div class="muted" style="font-size:0.78rem">Containers</div>
+        </div>
+        <div style="text-align:right">
+          <div class="value" id="panelUptime">0h</div>
+          <div class="muted" style="font-size:0.78rem">Uptime</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="title">Coin</div>
+      <div>
+        <div class="value" id="coinBalance">0.00</div>
+        <div class="muted" style="font-size:0.78rem">FCFA</div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <div id="mainArea" class="card"></div>
+  </main>
+</div>
+
+<div class="bottom-nav" role="navigation" aria-label="mobile nav">
+  <button data-section="bot" class="active">Bot</button>
+  <button data-section="panel">Panel</button>
+  <button data-section="coin">Coin</button>
+</div>
+
+<footer>&copy; 2025 Senku Tech — All rights reserved.</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div id="modalBody">
+      <div class="spinner"></div>
+      <div class="muted">Pairing... please wait</div>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard JS -->
+<script id="user-data" type="application/json">
+  {
+    "coin": "{{ coin }}"
+  }
+</script>
+<script src="{% static '/js/dash.js' %}"></script>
+</body>
+</html>

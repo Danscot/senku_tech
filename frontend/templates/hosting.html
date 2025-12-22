@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hosting | Senku Tech</title>
+
+
+  <link rel="stylesheet" href="../css/hosting.css">
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>Senku Tech</h1>
+
+    <nav>
+
+      <a href="#">Hosting</a>
+
+      <a href="#">Dashboard</a>
+
+      <a href="#">Account</a>
+
+    </nav>
+
+    <div class="burger" id="burger">
+
+      <div></div>
+
+      <div></div>
+
+      <div></div>
+
+    </div>
+
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+
+    <a href="#">Hosting</a>
+
+    <a href="#">Dashboard</a>
+
+    <a href="#">Account</a>
+
+  </div>
+
+  <main>
+
+    <h2>Bot Panels</h2>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>5GB Panel</h3>
+
+        <p>Perfect for small production bots</p>
+
+        <div class="price">$2 | 1000 cfa/mo </div>
+
+        <a href="#" class="btn">Order Now</a>
+
+      </div>
+
+      <div class="card">
+
+        <h3>Unlimited Panel</h3>
+
+        <p>Scale up with larger storage</p>
+
+        <div class="price">$3 | 1500 cfa/mo</div>
+
+        <a href="#" class="btn">Order Now</a>
+
+      </div>
+
+    </div>
+
+    <h2>VPS Hosting</h2>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>4GB VPS</h3>
+
+        <p>Basic virtual server for small apps</p>
+
+        <div class="price">$7 | 4100 cfa/mo</div>
+
+        <a href="#" class="btn">Order Now</a>
+
+      </div>
+
+      <div class="card">
+
+        <h3>8GB VPS</h3>
+
+        <p>Balanced resources for mid-size projects</p>
+
+        <div class="price">$9 | 4700 cfa/mo</div>
+
+        <a href="#" class="btn">Order Now</a>
+
+      </div>
+
+      <div class="card">
+
+        <h3>16GB VPS</h3>
+
+        <p>High-performance VPS for enterprise bots</p>
+
+        <div class="price">$10 | 5200 cfa/mo</div>
+
+        <a href="#" class="btn">Order Now</a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+
+    &copy; 2025 Senku Tech — All rights reserved.
+
+  </footer>
+
+  <script>
+
+    const burger = document.getElementById('burger');
+
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu() {
+
+      burger.classList.toggle('open');
+
+      mobileMenu.classList.toggle('active');
+
+      mobileOverlay.classList.toggle('active');
+    }
+
+    burger.addEventListener('click', toggleMenu);
+
+    mobileOverlay.addEventListener('click', toggleMenu);
+
+  </script>
+
+</body>
+
+</html>
