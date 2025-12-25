@@ -58,3 +58,19 @@ logs/
 # Backup files
 *.bak
 *.swp
+
+# Build outputs / temp files
+dist/
+build/
+.cache/
+
+# Session/auth files
+sessions
+sessions.json
+
+temp
+
+# Config (local secrets)
+
+test.zip
+
