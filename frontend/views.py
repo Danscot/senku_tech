@@ -6,6 +6,10 @@ from django.contrib.auth import logout
 
 from django.http import JsonResponse
 
+from auth_sys.views import gen_code 
+
+from django.contrib import messages
+
 def index(request):
 
     return render(request, 'index.html')
@@ -32,6 +36,14 @@ def account(request):
     
     user.update()
 
+    if request.method == "POST" and not user.email_ver:
+
+        user.ver_code = gen_code(user)
+
+        user.save()
+
+        return redirect('ver') 
+
     return render(request, 'account.html', {
 
         "username":user.username,
@@ -54,11 +66,21 @@ def ver(request):
 
     user = request.user
 
-    return render(request, 'ver.html', {
+    try:
 
-        "email":user.email
+        return render(request, 'ver.html', {
 
-    })
+            "email":user.email
+
+        })
+    
+    except Exception as e:
+        # Log error (important in prod)
+        print("Verification error:", e)
+
+        messages.error(request, "Something went wrong. Try again later.")
+
+        return redirect("account")  # or any safe page
 
 @login_required
 

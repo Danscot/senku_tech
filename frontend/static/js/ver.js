@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } else {
 
-
-        window.location.href = "/signup";
-
         alert(data.message || "Invalid code");
 
       }

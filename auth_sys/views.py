@@ -28,7 +28,7 @@ def gen_code(user):
         
         emailer = Email(code, user.email)
 
-        emailer.send_verification_code()
+        #emailer.send_verification_code()
 
         return code
 

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (data.status === "created") {
         // ✅ Redirect after successful login
-        window.location.href = "account/ver'";
+        window.location.href = "account/ver";
 
       } else {
 

@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ["bothost.danscot.dev", "16.171.10.81"]
+ALLOWED_HOSTS = ["bothost.danscot.dev", "16.171.10.81", '127.0.0.1']
 
 
 # Application definition
