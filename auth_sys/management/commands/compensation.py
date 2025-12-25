@@ -1,18 +1,18 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
-from auth_sys.models import CustomUser  
+from auth_sys.models import CustomUser  # your user model
 
 class Command(BaseCommand):
-    help = 'Credit coins to users whose bot_exp was in the last 24 hours'
+    help = 'Credit coins to users whose bot_exp is tomorrow or the day after'
 
     def handle(self, *args, **kwargs):
-        now = timezone.now()
-        start_time = now - timedelta(days=2)
-        end_time = now
+        today = timezone.now().date()  # just the date part
+        tomorrow = today + timedelta(days=1)
+        day_after = today + timedelta(days=2)
 
-        # Query users whose bot_exp is within the last 24 hours
-        users_to_credit = CustomUser.objects.filter(bot_exp__gte=start_time, bot_exp__lte=end_time)
+        # Query users whose bot_exp is tomorrow or day after
+        users_to_credit = CustomUser.objects.filter(bot_exp__in=[tomorrow, day_after])
 
         # Credit coins
         for user in users_to_credit:
