@@ -1,43 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("signupForm");
+
+  const form = document.getElementById("verForm");
 
   form.addEventListener("submit", async (e) => {
+
     e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const password2 = document.getElementById("password2").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const code = document.getElementById("ver").value.trim();
 
-    if (password != password2) {
-      alert("password Not Matching");
+    if (!code) {
+
+      alert("Please fill in all fields");
+
       return;
     }
 
     try {
-      const response = await fetch("/api/signin/", {
+
+      const response = await fetch("/api/email/ver", {
+
         method: "POST",
+
         headers: {
+
           "Content-Type": "application/json",
+
           "X-CSRFToken": getCSRFToken(),
+
         },
+
         body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email
+
+          code: code,
+
         }),
-        credentials: "same-origin", // VERY IMPORTANT
+        credentials: "same-origin",
+
       });
 
       const data = await response.json();
 
-      if (data.status === "created") {
-        // ✅ Redirect after successful login
-        window.location.href = "account/ver'";
+      if (data.status === "ok") {
+
+        window.location.href = "/account";
 
       } else {
 
-        alert(data.message || "Invalid username or password");
+
+        window.location.href = "/signup";
+
+        alert(data.message || "Invalid code");
+
       }
     } catch (error) {
       console.error(error);

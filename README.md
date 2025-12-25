@@ -22,7 +22,7 @@ A Django-based bot management and coin reward system.
    ```bash
    git clone https://github.com/Danscot/senku_tech.git
    cd senku_tech
-````
+```
 
 2. **Create a virtual environment:**
 

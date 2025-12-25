@@ -11,10 +11,10 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = UserAdmin.fieldsets + (
 
-        (None, {'fields': ('coins', 'is_prem', 'bot_number', 'bot_exp', 'daily_ad_count', 'daily_ad_reset')}),
+        (None, {'fields': ('coins', 'is_prem', 'bot_number', 'bot_exp', 'daily_ad_count', 'daily_ad_reset', 'ver_code', 'email_ver', 'attempts')}),
 
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
     	
-        (None, {'fields': ('coins', 'is_prem', ' bot_number', 'bot_exp', 'daily_ad_count', 'daily_ad_reset')}),
+        (None, {'fields': ('coins', 'is_prem', ' bot_number', 'bot_exp', 'daily_ad_count', 'daily_ad_reset', 'ver_code', 'email_ver', 'attempts')}),
     )

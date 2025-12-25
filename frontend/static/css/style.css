@@ -244,3 +244,47 @@ footer{ padding:0.8rem; text-align:center; color:var(--muted); background:var(--
   justify-content: center;
   align-items: center;
 }
+
+.btn.danger {
+  background:#ef4444;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn.danger:hover {
+  opacity:.9;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge.verified {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge.unverified {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.action {
+  margin-left: 8px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.badge.action:hover {
+  opacity: 0.9;
+}

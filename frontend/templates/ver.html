@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification | Senku Tech</title>
+
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+</head>
+<body>
+  <div class="card">
+
+    <h1>𝓗𝓮𝓵𝓵𝓸 𝓦𝓸𝓻𝓵𝓭</h1>
+
+    <form id="verForm">
+
+      <div class="input-group">
+
+        <label for="ver">Verification code sent to {{ email }}</label>
+
+        <input type="text" id="ver" placeholder="Enter your verification code" required>
+
+      </div>
+
+      <button class="btn" type="submit">Verify</button>
+
+    </form>
+    
+    <div class="footer">
+      Wrong email ? <a href="{% url 'signup' %}">signup</a>
+
+    </div>
+
+  </div>
+
+
+  <script src="{% static 'js/ver.js' %}"></script>
+
+</body>
+
+</html>
+

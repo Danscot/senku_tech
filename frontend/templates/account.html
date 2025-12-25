@@ -8,6 +8,61 @@
 
   <!-- Reuse SAME CSS -->
   <link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+  <style>
+    /* Badge styles for verification */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .badge.verified {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.unverified {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .btn.danger {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn.danger:hover {
+      opacity: .9;
+    }
+
+    .btn.verify {
+      background: #f59e0b;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-left: 8px;
+      font-weight:600;
+    }
+    .btn.verify:hover {
+      opacity:.9;
+    }
+
+    @media (max-width: 768px) {
+      aside .widget {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -27,23 +82,27 @@
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-close" id="mobileClose">✕</button>
-
-    <a href="{% url 'index' %}">Home</a>
-    <a href="{% url 'dashboard' %}">Dashboard</a>
-    <a href="{% url 'account' %}">Account</a>
+  <a href="{% url 'index' %}">Home</a>
+  <a href="{% url 'dashboard' %}">Dashboard</a>
+  <a href="{% url 'account' %}">Account</a>
 </div>
 
 <div class="layout">
   <aside>
-
-  	<div class="widget">
-      <div class="value">Hello world</div>
+    <div class="widget">
+      <div class="value">Hello {{ username }}</div>
     </div>
 
+    <!-- Sidebar verification (optional) -->
     <div class="widget">
       <div class="title">Account status</div>
-      <div class="value">Active</div>
-      <div class="muted">Last login: Today</div>
+      {% if is_verified %}
+        <div class="value" style="color:#22c55e;">Verified</div>
+        <div class="muted">Email verified</div>
+      {% else %}
+        <div class="value" style="color:#f59e0b;">Unverified</div>
+        <div class="muted">Verify your email</div>
+      {% endif %}
     </div>
   </aside>
 
@@ -53,6 +112,22 @@
     <div class="card">
       <h2>Account</h2>
       <p class="muted">Basic account information</p>
+
+      <!-- Email verification badge + button -->
+      <div style="margin-top:8px;">
+        {% if is_verified %}
+          <span class="badge verified">
+            ✔ Email verified
+          </span>
+        {% else %}
+          <span class="badge unverified">
+            ⚠ Email not verified
+          </span>
+          <a href="{% url 'ver' %}" class="btn verify">
+            Verify Email
+          </a>
+        {% endif %}
+      </div>
 
       <div style="display:flex; gap:14px; margin-top:14px; flex-wrap:wrap">
         <div style="flex:1; min-width:240px">
@@ -65,9 +140,17 @@
           <div style="font-weight:800; margin-top:4px">{{ email }}</div>
         </div>
       </div>
+
+      <!-- LOGOUT BUTTON -->
+      <form method="POST" action="{% url 'web_logout' %}" style="margin-top:18px;">
+        {% csrf_token %}
+        <button class="btn danger" type="submit">
+          Logout
+        </button>
+      </form>
     </div>
 
-    <!-- SECURITY -->
+    <!-- BOT SESSION -->
     <div class="card" style="margin-top:14px">
       <h2>Bot Session</h2>
       <p class="muted">Bot & session control</p>
@@ -77,8 +160,9 @@
         Bot connected
       </div>
 
-       <div style="flex:1; min-width:240px">
-          <div class="muted">session number</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:12px">
+        <div style="flex:1; min-width:240px">
+          <div class="muted">Session number</div>
           <div style="font-weight:800; margin-top:4px">{{ bot_num }}</div>
         </div>
 
@@ -86,8 +170,7 @@
           <div class="muted">Expiration</div>
           <div style="font-weight:800; margin-top:4px">{{ bot_exp }}</div>
         </div>
-
-
+      </div>
     </div>
 
   </main>
@@ -96,36 +179,26 @@
 <footer>&copy; 2025 Senku Tech — All rights reserved.</footer>
 
 <script>
-
   const burger = document.getElementById('burger');
-
   const mobileNav = document.getElementById('mobileNav');
-
   const mobileClose = document.getElementById('mobileClose');
 
   burger.onclick = () => {
-
     burger.classList.toggle('open');
-
     mobileNav.classList.toggle('active');
   };
 
   mobileClose.onclick = () => {
-
     burger.classList.remove('open');
-
     mobileNav.classList.remove('active');
-
   };
 
-
+  // Bot expiration status
   const botExp = "{{ bot_exp|default:'' }}";
-
   if (botExp === "" || botExp === "None") {
-    const active = document.getElementById('dot');
-    active.style.background = 'red';
+    const dot = document.getElementById('dot');
+    dot.style.background = 'red';
   }
-
 </script>
 
 </body>

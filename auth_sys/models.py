@@ -21,6 +21,11 @@ class CustomUser(AbstractUser):
 
     daily_ad_reset = models.DateTimeField(blank=True, null=True)
 
+    ver_code = models.PositiveIntegerField(default=0, null=True)
+
+    email_ver = models.BooleanField(default=False)
+
+    attempts = models.PositiveIntegerField(default=0)
 
     def update(self):
 
@@ -68,7 +73,7 @@ class CustomUser(AbstractUser):
         # First ad of the day → set reset timer
         if self.daily_ad_count == 0:
 
-            self.daily_ad_reset = timezone.now() + timedelta(hours=24)
+            self.daily_ad_reset = timezone.now() + timedelta(hours=12)
 
         self.coins += amount
 
