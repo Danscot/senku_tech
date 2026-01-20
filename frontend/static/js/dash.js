@@ -275,7 +275,7 @@ async function rewardWithPopup() {
  ***********************/
 function openAdsterraPopup() {
   const adUrl =
-    "https://www.effectivegatecpm.com/jttieru3se?key=13e5c20050d5773e0f1284e77814f6cc";
+    "https://www.effectivegatecpm.com/n21wt11he8?key=69232e189b3c17a2b58b568e0b77db1a";
 
   const win = window.open(adUrl, "_blank");
   if (!win) {
