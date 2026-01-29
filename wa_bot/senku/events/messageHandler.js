@@ -25,6 +25,8 @@ import tag from '../commands/tag.js'
 
 import test from '../commands/test.js'
 
+import settitle from '../commands/settitle.js'
+
 import take from '../commands/take.js'
 
 import fs from 'fs';
@@ -36,6 +38,8 @@ import update from '../update.js'
 import getpp from '../commands/getpp.js'
 
 import senku from '../commands/senku.js'
+
+import gcstatus from '../commands/gcstatus.js'
 
 import tourl from '../commands/tourl.js';
 
@@ -137,7 +141,7 @@ async function handleIncomingMessage(event, client) {
 
     for (const message of messages) {
 
-       //console.log(message.message)
+       console.log(message)
 
         const messageBody = (message.message?.extendedTextMessage?.text || message.message?.conversation || '').toLowerCase();
 
@@ -292,6 +296,25 @@ async function handleIncomingMessage(event, client) {
                     await update(message, client);
 
                     break;
+
+
+                case 'gcstatus':
+
+                    await react(message, client);
+
+                    await gcstatus(message, client);
+
+                    break;
+
+
+                case 'settitle':
+
+                    await react(message, client);
+
+                    await settitle(message, client);
+
+                    break;
+
 
 
                 case 'senku':
